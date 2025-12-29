@@ -1,0 +1,22 @@
+@import "tailwind-scrollbar-hide/v4";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  /* 針對 Chrome, Safari and Opera 瀏覽器 */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 針對 IE, Edge and Firefox 瀏覽器 */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
