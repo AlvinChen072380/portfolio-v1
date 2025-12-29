@@ -72,7 +72,7 @@ export default function Hero () {
               <div className="w-64 h-64 md:w-[25rem] md:h-[25rem] rounded-full overflow-hidden shadow-2xl border-4 border-morandi-accent relative z-10">
                 {/* 重點3: Next/Image 元件 */}
                 <Image 
-                  src="/Mountain.jpg" //public資料夾下的檔案名稱
+                  src="/mountain.jpg" //public資料夾下的檔案名稱
                   alt="Frontend Developer Avatar"
                   // [關鍵屬性 A] fill
                   // 傳統 img 需要設定 width/height，但在 RWD 裡很難用。
