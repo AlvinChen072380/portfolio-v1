@@ -18,11 +18,11 @@ const projects = [
   {
     id: "p3",
     title: "Mountain View",   
-    image: "/mountain2.jpg"
+    image: "/mountain.jpg"
   },
   {
     id: "p4",
-    title: "Mountain View",   
+    title: "Sunset Sky",   
     image: "/mountain2.jpg"
   }
 ];
