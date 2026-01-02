@@ -6,126 +6,195 @@ import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { projectsData } from "@/data/projects";
 
-/* const projects = [
-  { id: 0, title: "Chiffon Cake", image: "/cake.jpg", desc: "甜點與程式碼的交織。", text: "test only" },
-  { id: 1, title: "Taiwan Coffee", image: "/coffee.jpg", desc: "品味生活中的美好時刻。" },
-  { id: 2, title: "Mountain View", image: "/mountain.jpg", desc: "登高望遠，開闊視野。" },
-  { id: 3, title: "Coding Life", image: "/mountain2.jpg", desc: "專注於每個像素的細節。" },
-]; */
-
 export default function Carousel() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
 
-  const itemsRef = useRef<Map<number, HTMLDivElement>>(new Map());
+  const itemsRef = useRef<Map<number, HTMLDivElement>>(new Map()); //動態數量Ref的處理
   const containerRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null); 
+  
+  // 🔒 鎖定機制
+  const isLocked = useRef(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const projects = projectsData;
 
-  const handleNavigate = useCallback((direction: "prev" | "next") => {
-    const length = projects.length;
-    if (direction === "next") {
-      setActiveIndex((prev) => (prev + 1) % length);
-    } else {
-      setActiveIndex((prev) => (prev - 1 + length) % length);
-    }
-    setIsDetailOpen(false);
-  },[projects.length]); //依賴 projects.length
-
-
-  // 🔥 [修正後] 最穩定的置中公式
-  // 這個公式是：讓「卡片的中心點」去對齊「容器的中心點」
-  const scrollToActive = (index: number) => {
+  // 🖱️ 獨立捲動函式
+  // 新增參數 behavior: 允許強制指定是 "smooth" 還是 "auto" (瞬移)
+  const scrollToIndex = useCallback((index: number, behavior: ScrollBehavior = "smooth") => {
     const container = containerRef.current;
     const node = itemsRef.current?.get(index);
 
     if (container && node) {
-      // offsetLeft: 元素距離容器最左邊的距離 (已經包含了 padding 50vw)
-      // container.clientWidth: 容器可視範圍的寬度
-      // node.offsetWidth: 卡片目前的寬度
+      const isDesktop = window.innerWidth >= 768;
+      const targetWidth = isDesktop ? 500 : 300; 
+      const baseWidth = isDesktop ? 300 : 200; 
+      const widthDiff = targetWidth - baseWidth;
+
+      let scrollLeft =
+        node.offsetLeft - container.clientWidth / 2 + targetWidth / 2;
+
+      // 方向補償 (往右時扣除左邊縮水的距離)
+      // 注意：如果是瞬移 (auto)，通常發生在 Loop 情況，不需要補償，或者補償邏輯不同
+      // 但為了簡單起見，我們只在 smooth 模式下且非 Loop 的往右時補償
+      // 這裡簡化邏輯：只要 activeIndex < index 就補償，除非跨度太大(代表是 Loop)
       
-      const scrollLeft =
-        node.offsetLeft - container.clientWidth / 2 + node.offsetWidth / 2;
+      // 判斷是否為 Loop (例如 0 -> 29 或 29 -> 0)
+      // 如果 index 差值超過總長度的一半，視為 Loop
+      /* const isLooping = Math.abs(index - activeIndex) > projects.length / 2;
+ */
+      if (index > activeIndex /* && !isLooping */) {
+        scrollLeft -= widthDiff;
+      }
 
       container.scrollTo({
         left: scrollLeft,
-        behavior: "smooth",
+        behavior: behavior, // 使用傳入的參數
       });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex]); // 需依賴 activeIndex 做方向判斷
+
+
+  // 🔥 FIX 1: 初始載入置中
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      // 初始載入用瞬移 (auto)，避免使用者看到畫面滑動
+      scrollToIndex(0, "auto");
+    }, 100);
+    return () => clearTimeout(timer);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // 只執行一次
+
+
+  // 🎮 導航處理
+  const handleNavigate = useCallback((index: number, useInstantScroll = false) => {
+    isLocked.current = true;
+    setActiveIndex(index);
+    setIsDetailOpen(false);
+    
+    // 決定捲動模式：如果是 Loop 或是指定瞬移，就用 auto
+    const behavior = useInstantScroll ? "auto" : "smooth";
+    scrollToIndex(index, behavior);
+
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    
+    // 如果是瞬移，鎖定時間可以短一點；如果是 smooth，要長一點
+    // 這裡維持 500ms 是一個安全值
+    timeoutRef.current = setTimeout(() => {
+      isLocked.current = false;
+    }, 500);
+  }, [scrollToIndex]); 
+
+
+  // 🔄 上一頁 / 下一頁 (包含 Loop 邏輯修正)
+  const handleNextPrev = (direction: "prev" | "next") => {
+    const length = projects.length;
+    let newIndex = activeIndex;
+    let useInstantScroll = false; // 是否使用瞬移
+
+    if (direction === "next") {
+      newIndex = (activeIndex + 1) % length;
+      // 如果從 最後一張 跳到 第一張 -> 瞬移
+      if (activeIndex === length - 1 && newIndex === 0) {
+        useInstantScroll = true;
+      }
+    } else {
+      newIndex = (activeIndex - 1 + length) % length;
+      // 如果從 第一張 跳到 最後一張 -> 瞬移
+      if (activeIndex === 0 && newIndex === length - 1) {
+        useInstantScroll = true;
+      }
+    }
+    handleNavigate(newIndex, useInstantScroll);
+  };
+
+  // 📱 捲動監聽
+  const handleScroll = () => {
+    if (isLocked.current) return;
+
+    const container = containerRef.current;
+    if (!container) return;
+
+    const center = container.scrollLeft + container.clientWidth / 2;
+    let minDistance = Infinity;
+    let closestIndex = activeIndex;
+
+    projects.forEach((_, index) => {
+      const node = itemsRef.current?.get(index);
+      if (node) {
+        // 手機滑動時，寬度由 CSS 控制，直接算中心點即可
+        const nodeCenter = node.offsetLeft + node.offsetWidth / 2;
+        const distance = Math.abs(center - nodeCenter);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestIndex = index;
+        }
+      }
+    });
+
+    if (closestIndex !== activeIndex) {
+      setActiveIndex(closestIndex);
+      
+      // 🔥 FIX 2: 手機版移除 scrollToIndex
+      // 手機版依賴 CSS snap-x 自動吸附。
+      // 當 activeIndex 改變 -> 寬度變大 -> CSS Snap 會自動把變大後的元素維持在中心。
+      // 這裡如果再呼叫 JS scroll，會跟 CSS 原生行為打架，造成彈跳。
+      // 所以：這裡什麼都不用做！
     }
   };
 
-  // 1️⃣ 第一階段：一點擊立刻捲動 (視覺反應快)
+  // ⌨️ 鍵盤監聽
   useEffect(() => {
-    scrollToActive(activeIndex);   
-    // Cleanup
-    return () => {
-        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isDetailOpen) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        handleNextPrev("prev");
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNextPrev("next");
+      }
     };
-  }, [activeIndex]);
-
-   //新增鍵盤監聽
-     useEffect(() => {
-      const handleKeyDown = (e: KeyboardEvent) => {
-        //只有當Detail Modal 沒打開時時才導航
-        if (isDetailOpen) return;    
-
-        if (e.key === "ArrowLeft") {
-          e.preventDefault()
-          handleNavigate("prev");
-        } else if (e.key === "ArrowRight") {
-          e.preventDefault();
-          handleNavigate("next");
-        }
-      };
-      // 1.掛載監聽器
-      window.addEventListener("keydown", handleKeyDown);
-
-      //2.清除監聽器 (Cleanup Function)
-      // 元件Unmount或 handleNavigate 改變時，要先把舊的監聽器移除
-      // 未移除會造成記憶體洩漏(Memory Leak)，且連續觸發
-      return () => {
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    },[handleNavigate, isDetailOpen]) 
-    
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeIndex, isDetailOpen]); 
 
   return (
-    <section 
-      id="Projects" 
-      className="py-24 bg-morandi-bg relative overflow-hidden outline-none"      
-      tabIndex={0}      
+    <section
+      id="Projects"
+      className="py-24 bg-morandi-bg relative overflow-hidden outline-none"
+      tabIndex={0}
     >
       <div className="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">
         <div>
           <h2 className="text-4xl font-serif font-bold text-morandi-primary">
             Visual Journal
           </h2>
-          {/* <p className="text-morandi-secondary mt-2">Manual Carousel Mode</p> */}
-           {/* UX調整，顯示目前圖片進度，讓使用者清楚剩餘多少圖片量 */}
           <div className="flex items-center gap-4 mt-2">
-            <p className="text-morandi-secondary">Collection 2024</p>
+            <p className="text-morandi-secondary">Collection 2024 - Click More</p>
             <div className="h-[1px] w-12 bg-morandi-secondary/50"></div>
             <p className="font-mono text-morandi-primary font-bold">
-                {String(activeIndex + 1).padStart(2, "0")} / {projects.length}
-                {/* 字串格式化 (String Formatting),未達 2字元 的數字前面補"0" */}
+              {String(activeIndex + 1).padStart(2, "0")} / {projects.length}
             </p>
           </div>
         </div>
-       
 
-        <div className="flex gap-4">
+        <div className="hidden md:flex gap-4">
           <button
-            onClick={() => handleNavigate("prev")}           
+            onClick={() => handleNextPrev("prev")}
             className="p-3 rounded-full border border-morandi-primary text-morandi-primary hover:bg-morandi-primary hover:text-white transition-colors"
             aria-label="Previous Project"
           >
             <ChevronLeft />
           </button>
           <button
-            onClick={() => handleNavigate("next")}            
+            onClick={() => handleNextPrev("next")}
             className="p-3 rounded-full border border-morandi-primary text-morandi-primary hover:bg-morandi-primary hover:text-white transition-colors"
-             aria-label="Next Project"
+            aria-label="Next Project"
           >
             <ChevronRight />
           </button>
@@ -134,7 +203,8 @@ export default function Carousel() {
 
       <div
         ref={containerRef}
-        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[400px] md:h-[600px] relative"
+        onScroll={handleScroll} 
+        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[400px] md:h-[600px] relative snap-x snap-mandatory md:snap-none scroll-smooth"
       >
         {projects.map((item, index) => {
           const isActive = index === activeIndex;
@@ -150,65 +220,28 @@ export default function Carousel() {
                 if (index === activeIndex) {
                   setIsDetailOpen(!isDetailOpen);
                 } else {
-                  setActiveIndex(index);
-                  setIsDetailOpen(false);
+                  handleNavigate(index);
                 }
               }}
               layout
-              // 這裡只負責物理位置變化的動畫，時間設為 0.4s
               transition={{ duration: 0.4, ease: "circOut" }}
-              
-              // 2️⃣ 第二階段：動畫完全結束後的校正 (修正微小誤差)
-              onLayoutAnimationComplete={() => {
-                if (isActive) {
-                  // 等 50ms 讓瀏覽器喘口氣，確保寬度完全定型
-                  timeoutRef.current = setTimeout(() => {
-                      scrollToActive(index);
-                  }, 50);
-                }
-              }}
-
-              /* 
-                面試官問你：「為什麼你的輪播不會歪掉？遇到動態寬度變化怎麼處理？」
-
-                你可以這樣回答：
-
-                「我發現 CSS Transition 和 JS Animation (Framer Motion) 如果同時控制 width，會造成數值衝突，導致位置計算錯誤。
-
-                所以我採取了兩個策略：
-
-                職責分離：把尺寸變化完全交給 Framer Motion (layout prop)，移除 CSS 的 transition-all，確保瀏覽器不會有兩套邏輯在打架。
-
-                雙重校正：點擊時先做一次捲動維持視覺流暢度，等動畫事件結束 (onLayoutAnimationComplete) 確定 DOM 穩定後，再做一次精準的座標校正。」
-              
-              */
-              
-              // 🔥 [關鍵修正 CSS]
-              // 1. 移除了 'transition-all' 和 'duration-500' (這是造成算不準的元兇！)
-              // 2. 只保留 'transition-colors' 給 hover 效果用
-              // 3. 移除了 snap 相關屬性
               className={`
                 relative flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden group
-                transition-colors duration-300
+                transition-colors duration-300 snap-center
                 ${
                   isActive
-                    ? "w-[300px] h-[400px] md:w-[500px] md:h-[600px] z-10 shadow-2xl"
+                    ? "w-[300px] h-[400px] md:w-[400px] md:h-[500px] z-10 shadow-2xl"
                     : "w-[200px] h-[300px] md:w-[300px] md:h-[400px] opacity-60 grayscale"
                 }  
               `}
             >
-              {/* [效能優化] 
-                  Next.js Image 預設就是 lazy loading。
-                  但為了極致效能，我們可以手動確保只有"正在看"的那張被優先載入。
-                  其他的就讓它們慢慢載。 */}
               <Image
                 src={item.image}
                 alt={item.title}
                 fill
                 className="object-cover"
-                priority = {index >= activeIndex -1 && index <= activeIndex + 1}
-                //預載入視窗 (Sliding Window Preloading) 目前張數的前後都會預先下載
-                sizes= "(max-width: 768px) 300px, 500px" //告訴瀏覽器要下載多大的圖
+                priority={index >= activeIndex - 1 && index <= activeIndex + 1}
+                sizes="(max-width: 768px) 300px, 500px"
               />
 
               {!isDetailOpen && (
@@ -221,7 +254,7 @@ export default function Carousel() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-end p-8"
+                    className="absolute inset-0 bg-black/40 backdrop-blur-sm flex flex-col justify-end p-6 md:pr-14"
                   >
                     <button
                       onClick={(e) => {
@@ -244,9 +277,9 @@ export default function Carousel() {
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.1 }}
-                      className="text-gray-200 mt-2"
+                      className="text-gray-200 mt-0"
                     >
-                      {item.text}
+                      {item.desc}
                     </motion.p>
                     <motion.p
                       initial={{ y: 20, opacity: 0 }}
@@ -254,7 +287,7 @@ export default function Carousel() {
                       transition={{ delay: 0.1 }}
                       className="text-gray-200 mt-2"
                     >
-                      {item.desc}
+                      {item.text}
                     </motion.p>
                   </motion.div>
                 )}
