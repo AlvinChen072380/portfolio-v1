@@ -27,8 +27,8 @@ export default function Carousel() {
 
     if (container && node) {
       const isDesktop = window.innerWidth >= 768;
-      const targetWidth = isDesktop ? 500 : 300; 
-      const baseWidth = isDesktop ? 300 : 200; 
+      const targetWidth = isDesktop ? 400 : window.innerWidth * 0.7; 
+      const baseWidth = isDesktop ? 300 : window.innerWidth * 0.7; 
       const widthDiff = targetWidth - baseWidth;
 
       let scrollLeft =
@@ -223,15 +223,18 @@ export default function Carousel() {
                   handleNavigate(index);
                 }
               }}
-              layout
-              transition={{ duration: 0.4, ease: "circOut" }}
+              //layout
+              //transition={{ duration: 0.6, ease: "circOut" }}
               className={`
                 relative flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden group
-                transition-colors duration-300 snap-center
+                transition-all duration-500 snap-center
+
+                w-[70vw] h-[40vh]
+                md:h-[500px]
                 ${
                   isActive
-                    ? "w-[300px] h-[400px] md:w-[400px] md:h-[500px] z-10 shadow-2xl"
-                    : "w-[200px] h-[300px] md:w-[300px] md:h-[400px] opacity-60 grayscale"
+                    ? "md:w-[400px] z-10 shadow-2xl scale-100 opacity-100 grayscale-0"
+                    : "md:w-[300px] scale-90 opacity-50 grayscale"
                 }  
               `}
             >
@@ -241,7 +244,7 @@ export default function Carousel() {
                 fill
                 className="object-cover"
                 priority={index >= activeIndex - 1 && index <= activeIndex + 1}
-                sizes="(max-width: 768px) 300px, 500px"
+                sizes="(max-width: 768px) 70vw, 500px"
               />
 
               {!isDetailOpen && (
