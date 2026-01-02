@@ -204,7 +204,7 @@ export default function Carousel() {
       <div
         ref={containerRef}
         onScroll={handleScroll} 
-        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[400px] md:h-[600px] relative snap-x snap-mandatory md:snap-none scroll-smooth"
+        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[60dvh] md:h-[600px] relative snap-x snap-mandatory md:snap-none scroll-smooth"
       >
         {projects.map((item, index) => {
           const isActive = index === activeIndex;
@@ -227,9 +227,9 @@ export default function Carousel() {
               //transition={{ duration: 0.6, ease: "circOut" }}
               className={`
                 relative flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden group
-                transition-all duration-500 snap-center
+                transition-all duration-300 snap-center
 
-                w-[70vw] h-[40vh]
+                w-[70dvw] h-[50dvh]
                 md:h-[500px]
                 ${
                   isActive
