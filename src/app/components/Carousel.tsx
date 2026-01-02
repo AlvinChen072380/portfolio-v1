@@ -176,7 +176,7 @@ export default function Carousel() {
           </h2>
           <div className="flex items-center gap-4 mt-2">
             <p className="text-morandi-secondary">Collection 2024 - Click More</p>
-            <div className="h-[1px] w-12 bg-morandi-secondary/50"></div>
+            <div className="h-[1px] w-6 bg-morandi-secondary/50"></div>
             <p className="font-mono text-morandi-primary font-bold">
               {String(activeIndex + 1).padStart(2, "0")} / {projects.length}
             </p>
@@ -204,7 +204,7 @@ export default function Carousel() {
       <div
         ref={containerRef}
         onScroll={handleScroll} 
-        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[60dvh] md:h-[600px] relative snap-x snap-mandatory md:snap-none scroll-smooth"
+        className="flex gap-6 overflow-x-auto px-[50vw] items-center no-scrollbar h-[60vh] md:h-[600px] relative snap-x snap-mandatory md:snap-none scroll-smooth"
       >
         {projects.map((item, index) => {
           const isActive = index === activeIndex;
@@ -229,7 +229,7 @@ export default function Carousel() {
                 relative flex-shrink-0 cursor-pointer rounded-3xl overflow-hidden group
                 transition-all duration-300 snap-center
 
-                w-[70dvw] h-[50dvh]
+                w-[70vw] h-[50vh]
                 md:h-[500px]
                 ${
                   isActive
