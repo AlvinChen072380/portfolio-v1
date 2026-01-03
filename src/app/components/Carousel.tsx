@@ -71,7 +71,7 @@ export default function Carousel() {
   const handleNavigate = useCallback((index: number, useInstantScroll = false) => {
     isLocked.current = true;
     setActiveIndex(index);
-    setIsDetailOpen(false);
+    setIsDetailOpen(false);//強制換圖時關閉Detail區塊顯示
     
     // 決定捲動模式：如果是 Loop 或是指定瞬移，就用 auto
     const behavior = useInstantScroll ? "auto" : "smooth";
@@ -141,6 +141,7 @@ export default function Carousel() {
       // 當 activeIndex 改變 -> 寬度變大 -> CSS Snap 會自動把變大後的元素維持在中心。
       // 這裡如果再呼叫 JS scroll，會跟 CSS 原生行為打架，造成彈跳。
       // 所以：這裡什麼都不用做！
+      setIsDetailOpen(false);
     }
   };
 
