@@ -18,7 +18,7 @@ export default function InteractiveText({ id, title, subtitle, onClick }: CardPr
     <motion.div
       layoutId={id}
       onClick={onClick}
-      className="relative w-full h-[200px] bg-morandi-white rounded-3xl shadow-xl overflow-hidden cursor-pointer hover:bg-white group"
+      className="relative w-full h-[450px] bg-morandi-white rounded-3xl shadow-xl overflow-hidden cursor-pointer hover:bg-white group"
     >
       <motion.div
         layoutId={`content-${id}`}

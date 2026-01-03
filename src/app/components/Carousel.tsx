@@ -166,8 +166,8 @@ export default function Carousel() {
 
   return (
     <section
-      id="Projects"
-      className="py-24 bg-morandi-bg relative overflow-hidden outline-none"
+      id="Journal"
+      className="pt-[15vh] pb-[15vh] md:pt-[20vh] md:pb-[10vh] bg-morandi-bg relative overflow-hidden outline-none"
       tabIndex={0}
     >
       <div className="max-w-7xl mx-auto px-6 mb-12 flex justify-between items-end">

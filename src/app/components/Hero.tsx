@@ -1,6 +1,20 @@
 import Image from "next/image";
+import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function Hero () {
+
+  const [copied, setCopied] = useState(false);
+  const email = "Lebensmittel2010@gmail.com"
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(email);
+
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+
   return (
     //section 語疫化標籤，代表獨立一個區塊
     /* 
@@ -9,7 +23,7 @@ export default function Hero () {
       flex items-center: 讓內容在垂直方向"置中"
       pt-20: mobile type fixed header 預留空間
     */
-    <section className="min-h-screen flex items-center pt-20 md:pt-0">
+    <section className=" flex items-center pt-20 md:pt-[20vh] md:pb-[5vh] md:h-[80dvh]">
 
       {/* 內容統一放在container裡 */}
         <div className="max-w-7xl mx-auto px-6 w-full">
@@ -23,7 +37,7 @@ export default function Hero () {
           <div className="grid md:grid-cols-12 gap-12 items-center">
             
             {/* 左側:文字內容(7欄) */}
-            <div className="md:col-span-7">
+            <div className="md:col-span-7 md:w-[40dvw]">
               {/* H1 標題，*text-6xl md:text-8xl 手機 文字大小6xl 電腦版md 8xl*/}
               <h1 className="text-6xl md:text-8xl font-serif font-bold text-morandi-primary leading-tight mt-4 mb-4">
                   Hi, I am Chen.
@@ -39,19 +53,22 @@ export default function Hero () {
                   sm:flex-row 平板以上改回水平排列(左右)
                   items-center: 讓按鈕置中對齊
               */}
-              <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+              <div className="flex flex-col  sm:flex-col gap-4 w-full sm:w-auto">
                 {/* main button */}
                  <a href="#Projects"
-                    className="px-8 py-3 text-center bg-morandi-primary text-morandi-white rounded-full hover:bg-morandi-accent hover:text-morandi-primary transition-colors duration-300 shadow-lg"
+                    className="px-8 py-3 text-center bg-morandi-primary text-morandi-white rounded-full hover:bg-morandi-accent hover:text-morandi-primary transition-colors duration-300 shadow-lg md:w-[25vw]"
                  >
                   Explore My Project
                  </a>
                  {/* second button */}
-                 <a href="#Contact"
-                    className="px-8 py-3 text-center border-morandi-primary text-morandi-primary rounded-full hover:bg-morandi-secondary/40 transition-colors duration-300"
+                 <button 
+                    onClick={handleCopy}
+                    className="px-8 py-3 text-center border-morandi-primary text-morandi-primary bg-morandi-primary/20 rounded-full hover:bg-morandi-secondary/40 transition-colors duration-300 md:w-[30vw]"
                  >
-                  Contact Me
-                 </a>
+                  <span className="flex items-center justify-center gap-2">
+                      {copied ? "Email copied!" : email}
+                  </span>                  
+                 </button>
               </div>
             </div>
 

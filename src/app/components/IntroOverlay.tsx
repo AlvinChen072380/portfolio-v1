@@ -13,21 +13,22 @@ export default function IntroOverlay({ onComplete }: IntroOverlayProps) {
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-morandi-bg text-morandi-primary"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }} //離開時淡出
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6 }}
     >
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1, delay: 0.5 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
         className="text-6xl md:text-8xl font-serif font-bold tracking-widest"
       >
-        Hello, Portfolio.
+        <p>console.log <br />
+        (Hello, Portfolio)</p>
       </motion.h1>
       {/* 模擬讀取條或簡單提示 */}
       <motion.div
         initial={{ width: 0 }}
         animate={{ width: 200 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
+        transition={{ duration: 0.8, delay: 0.5 }}
         onAnimationComplete={onComplete} //當這條線跑完，就執行 onComplete
         className="h-1 border-r-morandi-primary mt-8 rounded-full"
       />

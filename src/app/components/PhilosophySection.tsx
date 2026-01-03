@@ -26,13 +26,15 @@ export default function PhilosophySection() {
     }, [selectedId])
 
   return (
-    <section className="py-10 px-6 bg-morandi-bg">
+    <section
+      id="Ideas"       
+      className="pt-[15vh] md:pt-[20vh] md:pb-[5vh] px-6 bg-morandi-bg">
       <div className="max-w-5xl mx-auto">
         <h2 className="text-4xl font-serif font-bold text-morandi-primary text-center mb-16">
           My Values
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
           {PHILOSOPHY_ITEMS.map((item) => (
             <InteractiveText 
               key={item.id}
@@ -62,7 +64,7 @@ export default function PhilosophySection() {
             > {/* pointer-events-none 是為了讓點擊背景遮罩能生效，但卡片本身要 pointer-events-auto */}  
               <motion.div
                 layoutId={selectedId} //layoutId與未展開的小卡進行連結
-                className="w-full md:w-[90vw] max-w-2xl max-h-[85vh] overflow-y-auto bg-morandi-white rounded-3xl shadow-2xl overflow-hidden pointer-events-auto relative custom-scrollbar"
+                className="w-full md:w-[90vw] max-w-2xl max-h-[85vh] overflow-y-auto bg-morandi-white rounded-3xl shadow-2xl overflow-hidden pointer-events-auto relative no-scrollbar"
                 transition={openSpring}
               >
                 {/* 關閉按鈕 */}
@@ -79,7 +81,7 @@ export default function PhilosophySection() {
                 {/* 內容區域 */}
                 <motion.div
                   layoutId={`content-${selectedId}`}
-                  className="p-6 md:p-10 text-center md:text-left pt-12 md:pt-10"
+                  className="p-6 md:p-10 text-center md:text-left pt-12 md:pt-10 "
                 >
                   <motion.h3
                     layoutId={`title-${selectedId}`}

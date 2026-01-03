@@ -42,16 +42,12 @@ export const PHILOSOPHY_ITEMS: PhilosophyItem[] = [
       Facere tempore deleniti reprehenderit est quas vitae qui mollitia asperiores ipsum, delectus quibusdam totam nobis porro, cumque rerum, necessitatibus ipsam cum nam quos molestiae! Illum blanditiis eveniet nisi ex aspernatur.
       Fugiat itaque, unde, illum fuga et perferendis illo nemo sint rerum nihil voluptatum nobis perspiciatis? Ipsum repellat quod repudiandae porro perferendis maxime! Aperiam quod quis maxime. Placeat maiores consequuntur fuga!
       Tempora, laboriosam soluta. Blanditiis saepe assumenda laborum nam accusamus ratione voluptatibus? Architecto magnam, corporis maiores, quam ab fuga ut excepturi possimus atque hic tenetur quo iure temporibus iusto. Quod, error.
-      Molestiae error architecto est vitae obcaecati culpa ipsa dolorum distinctio quae iusto ipsum suscipit itaque veritatis autem aliquid corporis nisi nostrum molestias, repudiandae quod eveniet. Dolore doloremque expedita rem minima.
-      Non aspernatur dolores qui deserunt doloribus esse neque debitis ut! Nesciunt molestias amet quo, corporis, eligendi, numquam soluta esse adipisci est eos accusantium rem quasi consequatur deserunt asperiores tenetur qui!
-      Maxime itaque blanditiis labore. Porro est maxime obcaecati amet unde, vero ipsam, nihil mollitia possimus illo laudantium dolorem soluta culpa omnis pariatur dicta optio quidem facere quos? Eveniet, voluptates unde!
-      Ducimus dignissimos doloremque rem, officia tempore consequatur exercitationem eligendi? Quaerat dolore repellendus accusantium natus assumenda eius deleniti dolorem nemo sapiente fugit alias debitis atque quae quibusdam voluptatum, nam dolor nulla.
-      Debitis dolores mollitia vitae nihil asperiores, et nemo pariatur veniam assumenda facilis sapiente voluptas quisquam accusamus officia porro corrupti? Explicabo asperiores consequatur tempora officiis maiores consequuntur nostrum sunt porro velit!
+      Molestiae error architecto est vitae obcaecati culpa ipsa dolorum distinctio quae iusto ipsum suscipit itaque veritatis autem aliquid corporis nisi nostrum molestias, repudiandae quod eveniet. Dolore doloremque 
         </p>
       </>
     ),
   },
-  {
+  /* {
     id: "problem",
     title: "Problem Solving",
     subtitle: "How I tackle challenges.",
@@ -72,5 +68,5 @@ export const PHILOSOPHY_ITEMS: PhilosophyItem[] = [
         <p>目前正在深入研究 TypeScript 的進階型別與 WebGL 互動特效。</p>
       </>
     ),
-  },
+  }, */
 ]

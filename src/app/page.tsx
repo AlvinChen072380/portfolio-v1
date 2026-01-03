@@ -7,9 +7,10 @@ import Header from "./components/Header";
 import IntroOverlay from "./components/IntroOverlay";
 import Hero from "./components/Hero";
 import Carousel from "./components/Carousel";
-import Contact from "./components/Contact";
+
 import Footer from "./components/Footer";
 import PhilosophySection from "./components/PhilosophySection";
+import Project from "./components/Contact";
 
 export default function Home() {
   // [狀態] 控制開場動畫是否顯示
@@ -59,7 +60,7 @@ export default function Home() {
         <Carousel />       
         
         {/* 聯絡區塊 */}
-        <Contact />
+        <Project />
         
         {/* 頁尾 */}
         <Footer />

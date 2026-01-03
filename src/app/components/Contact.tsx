@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { easeInOut } from "framer-motion";
 
-export default function Contact() {
-  const [copied, setCopied] = useState(false);
-  const email = "Lebensmittel2010@gmail.com";
+export default function Project() { 
+  
 
   //定義動畫內容 (Variants)
   const containerVariants = {
@@ -28,16 +27,10 @@ export default function Contact() {
     },
   };
 
-  const handleCopy = () => {
-    //瀏覽器原生的剪貼簿API
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    //2秒後復原"Copied!"字樣
-    setTimeout(() => setCopied(false), 2000); 
-  };
+  
 
   return (
-    <section id="Contact" className="py-24 bg-morandi-primary text-morandi-white">
+    <section id="Projects" className="py-32 h-[79dvh] md:py-36 md:h-[82dvh] bg-morandi-primary text-morandi-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
        
         {/* 外層動畫容器 */}
@@ -70,7 +63,7 @@ export default function Contact() {
           className="flex flex-col md:flex-row gap-6 justify-center items-center"
         >    
           {/* 1.mail複製按鈕 */}
-          <button
+          {/* <button
             onClick={handleCopy}
             className="
               group relative px-8 py-4 md:w-auto
@@ -84,7 +77,6 @@ export default function Contact() {
                   {copied ? "Email Copied!" : email}
               </span>
 
-          {/* Tooltip電腦版hover顯示 */}
               <span className="
                 absolute -top-10 left-1/2 -translate-x-1/2 
                 bg-zinc-800 text-white text-xs px-3 py-1.5 rounded-md 
@@ -95,7 +87,7 @@ export default function Contact() {
                 Click to copy
               </span>
           </button>
-          
+           
           {/* Github 連結 */}
           <a 
              href="https://github.com/AlvinChen072380/hi-refrigerator"
@@ -110,7 +102,35 @@ export default function Contact() {
             "
           >
             Github
+          </a>    
+          <a 
+             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="
+              px-8 py-4 w-full md:w-auto
+              border border-morandi-accent text-morandi-accent 
+              rounded-full font-bold text-lg 
+              hover:bg-morandi-accent hover:text-morandi-primary hover:scale-105 active:scale-95 transition-all duration-300
+              flex items-center justify-center gap-2 
+            "
+          >
+           Project-1
           </a>        
+          <a 
+             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="
+              px-8 py-4 w-full md:w-auto
+              border border-morandi-accent text-morandi-accent 
+              rounded-full font-bold text-lg 
+              hover:bg-morandi-accent hover:text-morandi-primary hover:scale-105 active:scale-95 transition-all duration-300
+              flex items-center justify-center gap-2 
+            "
+          >
+            Project-2
+          </a>            
           </motion.div>
         </motion.div>
       </div>
