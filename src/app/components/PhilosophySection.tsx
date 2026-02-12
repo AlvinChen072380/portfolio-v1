@@ -101,7 +101,7 @@ export default function PhilosophySection() {
                     animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.6, ease: "easeIn" } }} 
                     exit={{ opacity: 0, y: 0, transition: { duration: 0.1, delay: 0 } }}                   
                     className=" leading-relaxed space-y-4 ml-1.5"
-                    /* onClick={() => setSelectedId(null)} */
+                    onClick={() => setSelectedId(null)}
                   >
                     {selectedItem.content}
                   </motion.div>
