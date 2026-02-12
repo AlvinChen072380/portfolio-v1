@@ -18,15 +18,15 @@ export default function InteractiveText({ id, title, subtitle, onClick }: CardPr
     <motion.div
       layoutId={id}
       onClick={onClick}
-      className="relative w-full h-[450px] bg-morandi-white rounded-3xl shadow-xl overflow-hidden cursor-pointer hover:bg-white group"
+      className="relative w-full h-[450px] bg-morandi-accent rounded-3xl shadow-xl overflow-hidden cursor-pointer hover:bg-gray-200 group transition-colors"
     >
       <motion.div
         layoutId={`content-${id}`}
-        className="text-center h-full flex flex-col justify-center p-6"
+        className="text-center h-full flex flex-col justify-center p-6 "
       >
         <motion.h3
           layoutId={`title-${id}`}
-          className="font-serif font-bold text-morandi-primary text-xl m-0 group-hover:text-morandi-accent transition-colors"
+          className="font-serif font-bold text-xl m-0 group-hover:text-pink-950 transition-colors"
         >
           {title}
         </motion.h3>

@@ -136,11 +136,10 @@ export default function Carousel() {
     if (closestIndex !== activeIndex) {
       setActiveIndex(closestIndex);
       
-      // 🔥 FIX 2: 手機版移除 scrollToIndex
+      // FIX 2: 手機版移除 scrollToIndex
       // 手機版依賴 CSS snap-x 自動吸附。
       // 當 activeIndex 改變 -> 寬度變大 -> CSS Snap 會自動把變大後的元素維持在中心。
-      // 這裡如果再呼叫 JS scroll，會跟 CSS 原生行為打架，造成彈跳。
-      // 所以：這裡什麼都不用做！
+      // 這裡如果再呼叫 JS scroll，會跟 CSS 原生行為打架，造成彈跳。      
       setIsDetailOpen(false);
     }
   };
