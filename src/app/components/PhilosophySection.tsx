@@ -60,7 +60,7 @@ export default function PhilosophySection() {
             />
             {/* 展開的大卡 */}
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-4 md:p-0 "                         
+              className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none p-4 md:p-0 will-change-transform"                         
             > {/* pointer-events-none 是為了讓點擊背景遮罩能生效，但卡片本身要 pointer-events-auto */}  
               <motion.div
                 layoutId={selectedId} //layoutId與未展開的小卡進行連結

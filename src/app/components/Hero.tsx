@@ -38,13 +38,13 @@ export default function Hero () {
           <div className="grid md:grid-cols-12 gap-12 items-center">
             
             {/* 左側:文字內容(7欄) */}
-            <div className="md:col-span-7 md:w-[40dvw]">
+            <div className="md:col-span-7 md:w-[50dvw]">
               {/* H1 標題，*text-6xl md:text-8xl 手機 文字大小6xl 電腦版md 8xl*/}
               <h1 className="text-6xl md:text-8xl font-serif font-bold text-morandi-primary leading-tight mt-4 mb-4">
                   Hi, I am Chen.
               </h1>
-              <p className="text-morandi-secondary text-2xl mb-8 max-w-lg">
-                  從咖啡店經營轉職的前端開發者，<br/>擅長打造使用者體驗優良的互動式介面，目前專精於 React/Next.js & <br/> Tailwind CSS & Framer Motion。
+              <p className="text-morandi-secondary text-lg  md:text-xl mb-8 max-w-lg ">
+                  從咖啡店經營轉職的前端開發者，<br/>擅長打造使用者體驗優良的互動介面，<br />目前專精於 React/Next.js & <br/> Tailwind CSS & Framer Motion。
               </p>
 
               {/* 行動呼籲按鈕(CTA)*/}

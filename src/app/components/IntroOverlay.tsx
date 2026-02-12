@@ -13,25 +13,28 @@ export default function IntroOverlay({ onComplete }: IntroOverlayProps) {
       className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-morandi-bg text-morandi-primary"
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }} //離開時淡出
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.5 }}
     >
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="text-6xl md:text-8xl font-serif font-bold tracking-widest"
+        transition={{ duration: 1.2, delay: 0.3, ease:"easeOut" }}
+        className="font-serif font-bold tracking-widest will-change-transform"
       >
-        <p>console.log <br />
-        (Hello, Portfolio)</p>
+        <p className="text-4xl md:text-6xl leading-snug md:leading-snug">console.log <br />
+        (你好,Hello,哩賀 )</p>
       </motion.h1>
       {/* 模擬讀取條或簡單提示 */}
-      <motion.div
+      <div className="mt-0 h-1 w-[300px] md:w-[500px] flex justify-center">
+        <motion.div
         initial={{ width: 0 }}
-        animate={{ width: 200 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
+        animate={{ width: "100%" }}
+        transition={{ duration: 1.2, delay: 0.3, ease:"easeInOut" }}
         onAnimationComplete={onComplete} //當這條線跑完，就執行 onComplete
-        className="h-1 border-r-morandi-primary mt-8 rounded-full"
-      />
+        className="z-60 h-1 bg-morandi-text/50 mt-4 rounded-full"
+      /> 
+      </div>
+      
     </motion.div>
   )
 }
