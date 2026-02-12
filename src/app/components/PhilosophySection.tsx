@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, } from "framer-motion";
 import { X } from "lucide-react";
 import InteractiveText from "./InteractiveText";
 import { PHILOSOPHY_ITEMS } from "@/data/philosophy";
@@ -66,7 +66,12 @@ export default function PhilosophySection() {
                 layoutId={selectedId} //layoutId與未展開的小卡進行連結
                 className="w-full md:w-[90vw] max-w-2xl max-h-[85vh] overflow-y-auto bg-gray-200 rounded-3xl shadow-2xl overflow-hidden pointer-events-auto relative no-scrollbar"
                 transition={openSpring}
+                
+               /*  drag="y"
+                dragConstraints={{ top:0, bottom:0 }}
+                dragElastic={0.3} */
               >
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1 bg-gray-400/20 rounded-full" />
                 {/* 關閉按鈕 */}
                 <motion.button
                   initial={{ opacity: 0, scale: 0.8 }}
@@ -96,7 +101,7 @@ export default function PhilosophySection() {
                     animate={{ opacity: 1, y: 0, transition: { duration: 0.4, delay: 0.6, ease: "easeIn" } }} 
                     exit={{ opacity: 0, y: 0, transition: { duration: 0.1, delay: 0 } }}                   
                     className=" leading-relaxed space-y-4 ml-1.5"
-                    onClick={() => setSelectedId(null)}
+                    /* onClick={() => setSelectedId(null)} */
                   >
                     {selectedItem.content}
                   </motion.div>
