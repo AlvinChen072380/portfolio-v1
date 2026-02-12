@@ -64,11 +64,11 @@ export default function Header () {
                 md:flex: 平板以上(md)>變成flex顯示，並橫向排列
             */}
             <nav className="hidden md:flex gap-8">
+              <Link href="#Home" className="text-morandi-primary hover:text-morandi-secondary transition-colors">
+                Home
+              </Link>
               <Link href="#About" className="text-morandi-primary hover:text-morandi-secondary transition-colors">
                 About
-              </Link>
-              <Link href="#Ideas" className="text-morandi-primary hover:text-morandi-secondary transition-colors">
-                Ideas
               </Link>
                <Link href="#Journal" className="text-morandi-primary hover:text-morandi-secondary transition-colors">
                 Journal
@@ -115,7 +115,7 @@ export default function Header () {
             >
               {/* 選單連結 */}
               <nav className="flex flex-col gap-6 text-center mb-2">
-                {["About", "Ideas", "Journal", "Projects"].map((item) => (
+                {["Home", "About", "Journal", "Projects"].map((item) => (
                   <Link
                     key={item}
                     href={`#${item}`}

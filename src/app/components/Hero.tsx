@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import TiltProfileImage from "./TiltProfileImage";
 
 export default function Hero () {
 
@@ -43,9 +44,7 @@ export default function Hero () {
                   Hi, I am Chen.
               </h1>
               <p className="text-morandi-secondary text-2xl mb-8 max-w-lg">
-                  從 {/* 我的專業背景 */} 轉職的前端開發者，
-                  擅長利用 **React/Next.js** 和 //Tailwind CSS** 打造
-                  使用者體驗優良的互動式介面。
+                  從咖啡店經營轉職的前端開發者，<br/>擅長打造使用者體驗優良的互動式介面，目前專精於 React/Next.js & <br/> Tailwind CSS & Framer Motion。
               </p>
 
               {/* 行動呼籲按鈕(CTA)*/}
@@ -83,12 +82,14 @@ export default function Hero () {
             */}
 
             {/* 右側:圖片區(5欄) */}
-            <div className="md:col-span-5 relative flex justify-center md:justify-end">
+            <div className="md:col-span-5 relative flex justify-center md:justify-end h-64 md:h-[25rem]">
               {/* Image元件:Next.js專用，自動優化圖片 */}
 
-              <div className="w-64 h-64 md:w-[25rem] md:h-[25rem] rounded-full overflow-hidden shadow-2xl border-4 border-morandi-accent relative z-10">
+              {/* <div className="w-64 h-64 md:w-[25rem] md:h-[25rem] rounded-full overflow-hidden shadow-2xl border-4 border-morandi-accent relative z-10"> */}
+              <div className="relative z-10 w-full h-full flex justify-center md:justify-end">
+                <TiltProfileImage/>
                 {/* 重點3: Next/Image 元件 */}
-                <Image 
+              {/*   <Image 
                   src="/chen.jpg" //public資料夾下的檔案名稱
                   alt="Frontend Developer Avatar"
                   // [關鍵屬性 A] fill
@@ -103,7 +104,8 @@ export default function Hero () {
                   // [關鍵屬性 C] object-cover
                   // 這是 CSS 屬性。確保圖片填滿容器時，保持比例，多餘的部分「裁切掉」，不會變形。
                   className="object-cover w-full h-full"
-                />     
+                />    */}  
+                
 
                 {/* 
                   2. 面試模擬題

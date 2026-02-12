@@ -60,7 +60,7 @@ export default function Project() {
         {/* 互動區域，複製mail */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col md:flex-row gap-6 justify-center items-center"
+          className="flex flex-col md:flex-row flex-wrap gap-6 justify-center items-center"
         >    
           {/* 1.mail複製按鈕 */}
           {/* <button
@@ -90,47 +90,162 @@ export default function Project() {
            
           {/* Github 連結 */}
           <a 
-             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             href="https://github.com/AlvinChen072380"
              target="_blank"
              rel="noopener noreferrer"
-             className="
+             className="              
+              relative overflow-hidden 
+              group 
               px-8 py-4 w-full md:w-auto
-              border border-morandi-accent text-morandi-accent 
-              rounded-full font-bold text-lg 
-              hover:bg-morandi-accent hover:text-morandi-primary hover:scale-105 active:scale-95 transition-all duration-300
-              flex items-center justify-center gap-2 
+              border border-morandi-accent 
+              rounded-full font-bold text-lg              
+              
+              text-morandi-accent 
+              hover:text-morandi-white              
+              
+              flex items-center justify-center gap-2               
+              
+              hover:scale-105 active:scale-95 transition-all duration-300
             "
-          >
-            Github
+          >          
+            <span className="
+              absolute inset-0 
+              bg-[url('/image/GitHub-button-bg.png')] 
+              bg-center bg-no-repeat
+              bg-[length:120%]               
+              
+              bg-black/40 bg-blend-overlay              
+              
+              opacity-0 group-hover:opacity-100 
+              transition-opacity duration-500 ease-out              
+             
+              -z-10
+            "></span>
+           
+            <span className="relative z-10 flex items-center gap-2">
+              My GitHub
+            </span>
           </a>    
           <a 
-             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             href="https://hi-refrigerator.vercel.app/"
              target="_blank"
              rel="noopener noreferrer"
              className="
+              /* --- 1. 基礎按鈕結構 --- */
+              relative overflow-hidden /* 讓偽元素不會跑出圓角外 */
+              group /* 為了讓偽元素能吃到父層的 hover */
               px-8 py-4 w-full md:w-auto
-              border border-morandi-accent text-morandi-accent 
+              border border-morandi-accent 
               rounded-full font-bold text-lg 
-              hover:bg-morandi-accent hover:text-morandi-primary hover:scale-105 active:scale-95 transition-all duration-300
+              
+              /* --- 2. 文字與邊框顏色過渡 --- */
+              text-morandi-accent 
+              hover:text-morandi-white 
+              
+              
+              /* --- 3. Flex 排版 --- */
               flex items-center justify-center gap-2 
+              
+              /* --- 4. 按鈕本體互動 (縮放) --- */
+              hover:scale-105 active:scale-95 transition-all duration-300
             "
           >
-           Project-1
+            {/* --- 5. 背景圖片層 (透過 before 偽元素實作) --- */}
+            <span className="
+              absolute inset-0 
+              bg-[url('/image/portfolio-frige-bg.png')] 
+              bg-center bg-no-repeat
+              bg-[length:120%] 
+              
+              /* 疊加一層黑色遮罩效果 */
+              bg-black/40 bg-blend-overlay
+              
+              /* 動畫核心：預設透明，Hover 變不透明 */
+              opacity-0 group-hover:opacity-100 
+              transition-opacity duration-500 ease-out
+              
+              /* 確保背景在文字後面 */
+              -z-10
+            "></span>
+
+            {/* --- 6. 按鈕文字 (確保層級在背景之上) --- */}
+            <span className="relative z-10 flex items-center gap-2">
+              Hi ! refrigerator
+            </span>
           </a>        
           <a 
              href="https://github.com/AlvinChen072380/hi-refrigerator"
              target="_blank"
              rel="noopener noreferrer"
-             className="
+             className="              
+              relative overflow-hidden 
+              group 
               px-8 py-4 w-full md:w-auto
-              border border-morandi-accent text-morandi-accent 
-              rounded-full font-bold text-lg 
-              hover:bg-morandi-accent hover:text-morandi-primary hover:scale-105 active:scale-95 transition-all duration-300
-              flex items-center justify-center gap-2 
+              border border-morandi-accent 
+              rounded-full font-bold text-lg              
+              
+              text-morandi-accent 
+              hover:text-morandi-white              
+              
+              flex items-center justify-center gap-2               
+              
+              hover:scale-105 active:scale-95 transition-all duration-300
             "
-          >
-            Project-2
-          </a>            
+          >          
+            <span className="
+              absolute inset-0 
+              bg-[url('/image/FanArt-button-bg.png')] 
+              bg-center bg-no-repeat
+              bg-[length:120%]               
+              
+              bg-black/40 bg-blend-overlay              
+              
+              opacity-0 group-hover:opacity-100 
+              transition-opacity duration-500 ease-out              
+             
+              -z-10
+            "></span>
+           
+            <span className="relative z-10 flex items-center gap-2">
+              FanArt Shop
+            </span>
+          </a> 
+         {/*  <a 
+             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="              
+              relative overflow-hidden 
+              group 
+              px-8 py-4 w-full md:w-auto
+              border border-morandi-accent 
+              rounded-full font-bold text-lg              
+              
+              text-morandi-accent 
+              hover:text-morandi-white              
+              
+              flex items-center justify-center gap-2               
+              
+              hover:scale-105 active:scale-95 transition-all duration-300
+            "
+          >          
+            <span className="
+              absolute inset-0               
+              bg-center bg-no-repeat
+              bg-[length:120%]               
+              
+              bg-black/40 bg-blend-overlay              
+              
+              opacity-0 group-hover:opacity-100 
+              transition-opacity duration-500 ease-out              
+             
+              -z-10
+            "></span>
+           
+            <span className="relative z-10 flex items-center gap-2">
+              Read Me
+            </span>
+          </a>                  */}
           </motion.div>
         </motion.div>
       </div>
