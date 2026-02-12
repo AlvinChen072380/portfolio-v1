@@ -7,6 +7,7 @@ const config: Config = {
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./data/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     // extend: 這是最關鍵的關鍵字！
@@ -21,6 +22,8 @@ const config: Config = {
           secondary: "#8F9E8B", // 淡鼠尾草綠 (裝飾)
           accent: "#D6C6B0",  // 奶茶色 (亮點/Hover)
           white: "#FFFFFF",   // 純白 (卡片底色)
+          text:"#E0B284",
+          text2:"#E5BE9E"
         },
       },
       // 自定義字體變數
