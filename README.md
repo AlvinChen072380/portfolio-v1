@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Interactive Frontend Portfolio (Next.js + Framer Motion)
 
-## Getting Started
+> An immersive, high-performance portfolio website built with **Next.js 14 App Router**. Featuring a custom **Hybrid Carousel engine**, optimized **SEO architecture**, and **PWA** capabilities.
 
-First, run the development server:
+🔗 **Live Demo:** [(https://portfolio-v1-dun-two.vercel.app/)]
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+![Project Preview](./public/og-image.png) 
+*(Note: Please ensure an `og-image.png` or screenshot is available in your public folder)*
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠 Tech Stack & Rationale
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Tech | Usage & Rationale |
+| :--- | :--- |
+| **Next.js 14** | **App Router** architecture for superior SEO, Server Components performance, and simplified routing. |
+| **TypeScript** | Strict type safety to ensure code reliability and maintainability. |
+| **Tailwind CSS** | Utility-first CSS for rapid UI development and **Scroll Snap** handling. |
+| **Framer Motion** | Orchestrating complex animations (Stagger children, Layout transitions) and gesture interactions. |
+| **PWA** | Static manifest strategy to enable "Add to Home Screen" native-like experience. |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Key Features & Technical Highlights
 
-## Learn More
+This project focuses on resolving real-world frontend challenges, specifically **Cross-Device Interaction** and **Web Performance**.
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Hybrid Carousel Engine (Dual Track Strategy)
+A custom-built carousel that adapts its physics engine based on the device, resolving the "Layout Shift" and "Scroll Jitter" issues common in responsive sliders.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* **📱 Mobile (Touch-First):** * Utilizes **Native CSS Scroll Snap** (`snap-x mandatory`) for 60fps smooth scrolling.
+    * **Visual Scaling:** Uses `transform: scale()` instead of width changes to prevent layout thrashing during swipes.
+    * **Logic:** Javascript `scrollTo` is disabled to avoid conflict with the native browser inertia.
+* **💻 Desktop (Mouse-First):** * Utilizes **JavaScript Control** (`scrollTo`) for precise navigation.
+    * **Physical Expansion:** Active items physically expand (`width` transition) for a dynamic visual effect.
+    * **Data Sync:** Standardized JS calculation logic to match CSS layout, ensuring perfect centering alignment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Performance Optimization (Core Web Vitals)
+* **LCP (Largest Contentful Paint):** Achieved green score (Sub 2.5s) by implementing **Priority Loading** strategies on Hero images.
+* **Zero Layout Shift:** Implemented `scrollbar-gutter` and global scrollbar hiding techniques to prevent content jumping when modals open/close.
+* **Event Locking:** Implemented `useRef` locking mechanisms to prevent event loop spamming during rapid navigation.
 
-## Deploy on Vercel
+### 3. SEO & Social Sharing
+* **Metadata API:** Fully integrated Next.js 14 Metadata API for dynamic `<title>` and `<meta>` tags.
+* **Open Graph (OG):** configured for optimized social media previews (Facebook/Twitter/LinkedIn cards).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4. Micro-Interactions & UX
+* **Scroll Lock:** Custom logic to lock body scroll when the "Philosophy" modal is active, ensuring focus.
+* **Staggered Animations:** Applied to the Contact section for a polished, orchestrated entry effect.
+* **PWA Support:** Static `manifest.json` implementation to bypass Next.js dynamic routing issues, making the site installable.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 💻 Getting Started (Local Development)
+
+To run this project on your local machine:
+
+1. Clone the repository:
+   ```bash
+   git clone [https://github.com/AlvinChen072380/portfolio-v1](https://github.com/AlvinChen072380/portfolio-v1)
