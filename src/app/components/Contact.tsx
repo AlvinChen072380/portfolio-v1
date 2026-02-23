@@ -30,7 +30,7 @@ export default function Project() {
   
 
   return (
-    <section id="Projects" className="py-32 h-[79dvh] md:py-36 md:h-[82dvh] bg-morandi-primary text-morandi-white">
+    <section id="Projects" className="py-32 h-[100dvh] md:py-36 md:h-[82dvh] bg-morandi-primary text-morandi-white">
       <div className="max-w-4xl mx-auto px-6 text-center">
        
         {/* 外層動畫容器 */}
