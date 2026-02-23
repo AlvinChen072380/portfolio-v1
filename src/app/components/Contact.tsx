@@ -174,7 +174,7 @@ export default function Project() {
             </span>
           </a>        
           <a 
-             href="https://github.com/AlvinChen072380/hi-refrigerator"
+             href="https://photo-portfolio-nine-theta.vercel.app/"
              target="_blank"
              rel="noopener noreferrer"
              className="              
